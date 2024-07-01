@@ -16,37 +16,68 @@ function getComputerChoice(){
     }
 }
 
-function getHumanChoice(){
-    return prompt('Enter your choice').toLowerCase();
-}
+// function getHumanChoice(){
+//     const btn =document.querySelector("button");
+//     const userChoice = .value;
+//     return userChoice;
+
+
+// }
 
 function playRound(humanChoice,computerChoice){
     if(humanChoice===computerChoice){
         humanScore++;
-        console.log(`You Win! ${humanChoice} beats ${computerChoice}`);
+        const para = document.createElement('p');
+        para.textContent=(`Human Wins Human Score: ${humanScore}`);
+        document.body.appendChild(para);
+        
+
+        //console.log(`You Win! ${humanChoice} beats ${computerChoice}`);
     }
     else{
         computerScore++;
-        console.log(`You Lose!! ${computerChoice} beats ${humanChoice}`);
+        const para = document.createElement('p');
+        para.textContent=(`Computer Wins Computer Score: ${computerScore}`);
+        document.body.appendChild(para);
+        //console.log(`You Lose!! ${computerChoice} beats ${humanChoice}`);
+    }
+
+    if (humanScore === 5 || computerScore === 5) {
+        endGame();
     }
 }
 
-function playGame(){
-    for(i=0;i<5;i++){
-        playRound(getHumanChoice(),getComputerChoice());
-    }
+function playGame(event){
+            const humanChoice = event.target.value;
+            console.log(humanChoice);
+            playRound(humanChoice,getComputerChoice());
+}
+        
+function endGame(){
     if (humanScore>computerScore){
-        console.log('Human wins');
+        alert('Human Wins');
     }
     else if (humanScore===computerScore){
-        console.log('Its a Draw');
+        alert('Its a Draw');
     }
     else{
-        console.log('Computer Wins');
+        alert('Computer Wins');
     }
 }
 
-playGame();
+// const btn = Array.from(document.querySelectorAll('button'));
+// btn.forEach(element=>{
+//     element.addEventListener('click',()=>{
+//         alert('Working');
+//     });
+// });
+
+const btn = Array.from(document.querySelectorAll('button'));
+
+btn.forEach(element=>{
+    element.addEventListener('click',playGame);
+});
+// playGame();
 
 
 
